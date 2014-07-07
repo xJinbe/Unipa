@@ -10,11 +10,10 @@ namespace Unipa;
  * 
  * @category   service
  * @package    Unipa
- * @author     Jinbe <jinbe@imokawaya.com>
+ * @author     Jinbe <my@wauke.org>
  * @copyright  2014 The Authors
  * @license    http://opensource.org/licenses/bsd-license.php New BSD License
  * @version    Release: 1.1.0
- * @link       http://bost.jp/
  * @since      Class available since Release 1.0.0
  */
  
