@@ -133,15 +133,19 @@ class Unipa {
      * @param  string $userid  User ID of Unipa.
      * @param  string $password  Password of Unipa.
      * @return bool
-     * @throws exception Cannnot_get_source, Empty_view_id
+     * @throws \Exception Cannnot_get_source, Empty_view_id
      */
     public function login($userid, $password) {
+        // Already logged in
         if($this->userId) return false;
+        
+        // Empty case
+        if(!$userid || !$password) return false;
         
         // Access to get session ID
         $result = $this->postContents($this->loginPath);
         if(!$result){
-            throw new Exception("Cannnot_get_source");
+            throw new \Exception("Cannnot_get_source");
             return;
         }
         
@@ -254,11 +258,11 @@ class Unipa {
      * 
      * @param  string $label  Label name
      * @return string   Result of $this->get()
-     * @throws exception Undefined_label
+     * @throws \Exception Undefined_label
      */
     public function label($label) {
         if(!isset($this->viewLabels[$label])){
-            throw new Exception("Undefined_label");
+            throw new \Exception("Undefined_label");
             return;
         }
         $this->currentRequestTag = $label;
@@ -291,11 +295,11 @@ class Unipa {
      * 
      * @param  array      $cookieGroup  Array of cookie group as key-value format
      * @return string                   Cookie string like HTTP header
-     * @throws exception                createCookieString:Type_error
+     * @throws \Exception                createCookieString:Type_error
      */
     protected function createCookieString($cookieGroup) {
         if(!is_array($cookieGroup)){
-            throw new Exception("createCookieString:Type_error");
+            throw new \Exception("createCookieString:Type_error");
             return;
         }
         $container = array();
@@ -315,11 +319,11 @@ class Unipa {
      * @param  bool       $postDirect        If you need to use GET method, set true.
      * @param  bool       $isConvertCharset  if you need to get SJIS-converted response, set true.
      * @return string                        HTTP body. You can get HTTP headers to call $this->latestHttpHeader
-     * @throws exception                     Empty_url, Under_maintenance 
+     * @throws \Exception                     Empty_url, Under_maintenance 
      */
     protected function postContents($path = "", $params = array(), $cookies = array(), $postDirect = false, $isConvertCharset = false) {
         if(!$path){
-            throw new Exception("Empty_url");
+            throw new \Exception("Empty_url");
             return;
         }
         
@@ -389,7 +393,7 @@ class Unipa {
 
         // When under maintenance
         if($this->isUnderMaintenance($result)){
-            throw new Exception("Under_maintenance");
+            throw new \Exception("Under_maintenance");
             return;
         }
             

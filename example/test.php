@@ -1,9 +1,9 @@
 <?
 namespace Example{
     use \Unipa;
-    require_once "./1.1/Unipa.php";
-    require_once "./1.1/UnipaViewer.php";
-    require_once "./1.1/UnipaUtils.php";
+    require_once "../bin/Unipa.php";
+    require_once "../bin/UnipaViewer.php";
+    require_once "../bin/UnipaUtils.php";
     header("Content-Type: text/html; charset=UTF-8");
     
     try{
@@ -15,7 +15,11 @@ namespace Example{
 ?>
         <h1>ログイン</h1>
 <?
-        if(!$unipa->login("userid", "password")){
+        if(!isset($_GET["id"]) || !isset($_GET["password"])){
+            print "ID及びパスワードを指定して下さい。<br>";
+            die();
+        }
+        else if(!$unipa->login($_GET["id"], $_GET["password"])){
             print "<b>ログイン失敗</b> <br>";
             die();
         }

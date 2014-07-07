@@ -235,7 +235,7 @@ class UnipaViewer extends Unipa {
             try{
                 $this->syllabusSearchPages = $this->getSyllabusListAllPages($result_first);
             }
-            catch(Exception $err){
+            catch(\Exception $err){
                 $this->syllabusSearchPages = 0;
             }
             if(!$page) $result = $result_first;
@@ -266,7 +266,7 @@ class UnipaViewer extends Unipa {
             return $m[1];
         }
         else{
-            throw new Exception("Page_number_not_found");
+            throw new \Exception("Page_number_not_found");
         }
     }
     
@@ -481,10 +481,6 @@ class UnipaViewer extends Unipa {
                     $result[] = $arr;
                 }
             }
-            print "ok<br>";
-        }
-        else{
-            print "<pre>".htmlspecialchars($source)."</pre>";
         }
         return $result;
     }
@@ -498,7 +494,7 @@ class UnipaViewer extends Unipa {
      * @param  bool      $onlyHead  If you need only title, from and data cell, set true.
      * @param  function  $callback  Callback function; called per topic.
      * @return void
-     * @throws exception Unknown_section_name, Unavailable_section_title
+     * @throws \Exception Unknown_section_name, Unavailable_section_title
      */
     public function getLatestInformationList($section, $callback = null, $onlyHead = false) {
         // update view ID and path.
@@ -518,7 +514,7 @@ class UnipaViewer extends Unipa {
             }
         }
         //$sectionCode = 2; //debug
-        if($sectionCode === null) throw new Exception("Unknown_section_name");
+        if($sectionCode === null) throw new \Exception("Unknown_section_name");
         
         // get list page
         $source = $this->get(array(
@@ -548,7 +544,7 @@ class UnipaViewer extends Unipa {
             return;
         }
         else if(!$cnt){
-            throw new Exception("Unavailable_section_title");
+            throw new \Exception("Unavailable_section_title");
         }
         
         // resolve
